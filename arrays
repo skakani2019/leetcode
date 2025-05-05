@@ -61,7 +61,168 @@ class Solution {
                return mid-1;
             }
         }
+--------------------------------------------------------------------------
+1. Two Sum
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for(int i=0; i<nums.length;i++){
+            for(int j=1; j< nums.length;j++){
+                if(nums[i]+nums[j]==target){
+                      int[] n = new int[2];
+                        n[0] =i;
+                        n[1] =j;
+                        return n;
+                   // break;
+                }else{
+                    continue;
+                }
+            }
+        }
+      return null;
+    }
+}
         
         
     }
 }
+----------------------------------------------------------------------------
+Roman to Integer
+class Solution {
+    public int romanToInt(String s) {
+        char[] ch = s.toCharArray();
+        int sum =0;
+        for(int i=0;i<ch.length;i++){
+            switch(ch[i]){
+                case 'I': 
+                        if(i!=ch.length-1){
+                        if(ch[i+1]!='V' || ch[i+1]!='X'){
+                            sum +=1;
+                            break;
+                        }else if(ch[i+1]=='V'){
+                            sum+=4;
+                            ++i;
+                            break;
+                        }else if(ch[i+1]=='X'){
+                            sum+=9;
+                            ++i;
+                            break;
+                        }}else{sum +=1;
+                        break;}
+                case 'V':
+                        sum +=5; break;
+                case 'X':
+                     if(i!=ch.length-1){
+                            if(ch[i+1]!='L' || ch[i+1]!='C'){
+                                sum +=10;
+                                break;
+                            }else if(ch[i+1]=='V'){
+                                sum+=40;
+                                ++i;
+                                break;
+                            }else if(ch[i+1]=='X'){
+                                sum+=90;
+                                ++i;
+                                break;
+                            }}else{sum +=10;
+                            break; }
+                case 'L':
+                        sum +=50; break;
+                case 'C':
+                     if(i!=ch.length-1){
+                            if(ch[i+1]!='D' || ch[i+1]!='M'){
+                                sum +=100;
+                                break;
+                            }else if(ch[i+1]=='D'){
+                                sum+=400;
+                                ++i;
+                                break;
+                            }else if(ch[i+1]=='M'){
+                                sum+=900;
+                                ++i;
+                                break;
+                            }}else{sum +=100;
+                            break; }
+                 case 'D':
+                        sum +=500; break;
+                 case 'M':
+                        sum +=1000; break;                             
+                   
+                
+            }
+        }
+        return sum;
+    }
+}
+
+
+
+class Solution {
+    public int romanToInt(String s) {
+        int sum =0;
+        char[] ch = s.toCharArray();
+        HashMap<Character, Integer> myMap = new HashMap<>();
+        myMap.put('I',1);
+        myMap.put('V',5);
+        myMap.put('X',10);
+        myMap.put('L',50);
+        myMap.put('C',100);
+        myMap.put('D',500);
+        myMap.put('M',1000);
+        for(int i=0; i<ch.length;i++){
+            if(i<ch.length-1){
+                if(myMap.get(ch[i]) < myMap.get(ch[i+1])){
+                    sum-=myMap.get(ch[i]);
+                }else{
+                     sum+=myMap.get(ch[i]);
+                }
+            
+            }else{
+                     sum+=myMap.get(ch[i]);
+            }
+        }
+        return sum;
+    }
+}
+-------------------------------------------------------------
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0){
+            return false;
+        }
+        String s = Integer.toString(x);
+        char[] ce = s.toCharArray();//12344321 
+         int mid ;
+        if(ce.length%2==0){//even
+         mid = ce.length/2; //        
+         }else{
+         mid = ce.length/2+1;
+         }
+        for(int i=0; i<mid;i++){
+            if(!(ce[i]==ce[ce.length - i -1])){
+                    return false;
+            }
+        }
+            return true;
+        
+
+       
+    }
+}
+-------------------------------
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        ArrayList<Integer> temp = new ArrayList<>();
+        for(int i:nums){
+            temp.add(i);
+        }
+       // System.out.println(temp);
+       List<Integer> tempr = temp.stream()
+        .filter(x->x!=val)
+        .collect(Collectors.toList());
+        System.out.println(tempr);
+        for(int i=0;i<tempr.size();i++){
+        nums[i]=tempr.get(i);
+        }
+        return tempr.size();
+}}
+-----------------------------------------------------
